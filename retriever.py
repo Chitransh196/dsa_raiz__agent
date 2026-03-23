@@ -1,6 +1,12 @@
+import os
+
 def retrieve_context(query: str) -> str:
     try:
-        with open("dsa_patterns_knowledge_base.txt", "r", encoding="utf-8") as f:
+        BASE_DIR = os.path.dirname(__file__)
+        file_path = os.path.join(BASE_DIR, "dsa_patterns_knowledge_base.txt")
+
+        with open(file_path, "r", encoding="utf-8") as f:
             return f.read()
-    except Exception:
-        return ""
+
+    except Exception as e:
+        return f"Error loading knowledge base: {e}"
