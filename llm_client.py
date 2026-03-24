@@ -29,15 +29,15 @@
 import os
 import requests
 
-HF_TOKEN = os.getenv("HF_TOKEN")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-if not HF_TOKEN:
-    raise ValueError("HF_TOKEN not found! Set it in environment variables.")
+if not GROQ_API_KEY:
+    raise ValueError("GROQ_API_KEY not found!")
 
-API_URL = "https://router.huggingface.co/v1/chat/completions"
+API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 headers = {
-    "Authorization": f"Bearer {HF_TOKEN}",
+    "Authorization": f"Bearer {GROQ_API_KEY}",
     "Content-Type": "application/json"
 }
 
@@ -45,7 +45,7 @@ headers = {
 def call_llm(prompt: str) -> str:
     try:
         payload = {
-            "model": "hf:HuggingFaceH4/zephyr-7b-beta",
+            "model": "llama3-8b-8192",  # ✅ super fast + free
             "messages": [
                 {"role": "user", "content": prompt}
             ],
