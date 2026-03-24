@@ -45,7 +45,7 @@ headers = {
 def call_llm(prompt: str) -> str:
     try:
         payload = {
-            "model": "llama3-8b-8192",  # ✅ super fast + free
+            "model": "llama-3.1-8b-instant",  # ✅ UPDATED MODEL
             "messages": [
                 {"role": "user", "content": prompt}
             ],
