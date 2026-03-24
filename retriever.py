@@ -11,31 +11,54 @@
 #     except Exception as e:
 #         return f"Error loading knowledge base: {e}"
 
+# import os
+
+
+# def retrieve_context(query: str) -> str:
+#     try:
+#         # 🔍 Get absolute directory of this file
+#         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+#         # 📂 Build full file path
+#         file_path = os.path.join(BASE_DIR, "dsa_patterns_knowledge_base.txt")
+
+#         # 🧪 Debug logs (helps in deployment)
+#         print("BASE_DIR:", BASE_DIR)
+#         print("Looking for file at:", file_path)
+
+#         # ❌ If file missing
+#         if not os.path.exists(file_path):
+#             return "⚠️ Knowledge base file not found. Make sure 'dsa_patterns_knowledge_base.txt' is in the same folder."
+
+#         # ✅ Read file
+#         with open(file_path, "r", encoding="utf-8") as f:
+#             content = f.read()
+
+#         # ❗ Optional: return partial content (avoid huge prompts)
+#         return content[:3000]
+
+#     except Exception as e:
+#         return f"❌ Error loading knowledge base: {str(e)}"
+
 import os
 
 
 def retrieve_context(query: str) -> str:
     try:
-        # 🔍 Get absolute directory of this file
-        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        # 🔍 Debug: show current working directory
+        cwd = os.getcwd()
+        files = os.listdir(cwd)
 
-        # 📂 Build full file path
-        file_path = os.path.join(BASE_DIR, "dsa_patterns_knowledge_base.txt")
+        print("CWD:", cwd)
+        print("FILES:", files)
 
-        # 🧪 Debug logs (helps in deployment)
-        print("BASE_DIR:", BASE_DIR)
-        print("Looking for file at:", file_path)
+        file_path = os.path.join(cwd, "dsa_patterns_knowledge_base.txt")
 
-        # ❌ If file missing
         if not os.path.exists(file_path):
-            return "⚠️ Knowledge base file not found. Make sure 'dsa_patterns_knowledge_base.txt' is in the same folder."
+            return f"❌ File NOT found.\nCurrent dir: {cwd}\nFiles: {files}"
 
-        # ✅ Read file
         with open(file_path, "r", encoding="utf-8") as f:
-            content = f.read()
-
-        # ❗ Optional: return partial content (avoid huge prompts)
-        return content[:3000]
+            return f.read()[:3000]
 
     except Exception as e:
-        return f"❌ Error loading knowledge base: {str(e)}"
+        return f"❌ Error: {e}"
