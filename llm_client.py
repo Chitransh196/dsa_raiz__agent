@@ -43,7 +43,7 @@ headers = {
 def call_llm(prompt: str) -> str:
     try:
         payload = {
-            "model": "hf:Qwen/Qwen2.5-7B-Instruct",  # ✅ REQUIRED
+            "model": "hf:mistralai/Mistral-7B-Instruct-v0.2",  # ✅ REQUIRED
             "messages": [
                 {"role": "user", "content": prompt}
             ],
