@@ -27,41 +27,42 @@
 #         return f"❌ Error: {e}"
 
 
-import os
 import requests
 import streamlit as st
 
-print("SECRETS:", st.secrets)
-#HF_TOKEN = os.getenv("HF_TOKEN")
 HF_TOKEN = st.secrets["HF_TOKEN"]
-if not HF_TOKEN:
-    raise ValueError("HF_TOKEN not found!")
 
 API_URL = "https://router.huggingface.co/v1/chat/completions"
 
 headers = {
-    "Authorization": f"Bearer {HF_TOKEN}"
+    "Authorization": f"Bearer {HF_TOKEN}",
+    "Content-Type": "application/json"
 }
 
 
 def call_llm(prompt: str) -> str:
     try:
         payload = {
-            "inputs": prompt,
-            "parameters": {
-                "temperature": 0.3,
-                "max_new_tokens": 300
-            }
+            "model": "hf:Qwen/Qwen2.5-7B-Instruct",  # ✅ REQUIRED
+            "messages": [
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.3,
+            "max_tokens": 300
         }
 
         response = requests.post(API_URL, headers=headers, json=payload)
 
-        result = response.json()
+        data = response.json()
 
-        if isinstance(result, list):
-            return result[0]["generated_text"]
+        # 🔍 Debug (VERY useful)
+        print("STATUS:", response.status_code)
+        print("RESPONSE:", data)
 
-        return str(result)
+        if "choices" in data:
+            return data["choices"][0]["message"]["content"]
+
+        return f"❌ Unexpected response: {data}"
 
     except Exception as e:
         return f"❌ Error: {e}"
