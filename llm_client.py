@@ -37,7 +37,7 @@ HF_TOKEN = st.secrets["HF_TOKEN"]
 if not HF_TOKEN:
     raise ValueError("HF_TOKEN not found!")
 
-API_URL = "https://api-inference.huggingface.co/models/Qwen/Qwen2.5-7B-Instruct"
+API_URL = "https://router.huggingface.co/v1/chat/completions"
 
 headers = {
     "Authorization": f"Bearer {HF_TOKEN}"
