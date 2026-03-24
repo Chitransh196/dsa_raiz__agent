@@ -45,7 +45,7 @@ headers = {
 def call_llm(prompt: str) -> str:
     try:
         payload = {
-            "model": "hf:mistralai/Mistral-7B-Instruct-v0.2",
+            "model": "hf:HuggingFaceH4/zephyr-7b-beta",
             "messages": [
                 {"role": "user", "content": prompt}
             ],
