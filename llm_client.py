@@ -26,11 +26,13 @@
 #     except Exception as e:
 #         return f"❌ Error: {e}"
 
-
+import os
 import requests
-import streamlit as st
 
-HF_TOKEN = st.secrets["HF_TOKEN"]
+HF_TOKEN = os.getenv("HF_TOKEN")
+
+if not HF_TOKEN:
+    raise ValueError("HF_TOKEN not found! Set it in environment variables.")
 
 API_URL = "https://router.huggingface.co/v1/chat/completions"
 
@@ -43,7 +45,7 @@ headers = {
 def call_llm(prompt: str) -> str:
     try:
         payload = {
-            "model": "hf:mistralai/Mistral-7B-Instruct-v0.2",  # ✅ REQUIRED
+            "model": "hf:mistralai/Mistral-7B-Instruct-v0.2",
             "messages": [
                 {"role": "user", "content": prompt}
             ],
@@ -54,10 +56,6 @@ def call_llm(prompt: str) -> str:
         response = requests.post(API_URL, headers=headers, json=payload)
 
         data = response.json()
-
-        # 🔍 Debug (VERY useful)
-        print("STATUS:", response.status_code)
-        print("RESPONSE:", data)
 
         if "choices" in data:
             return data["choices"][0]["message"]["content"]
