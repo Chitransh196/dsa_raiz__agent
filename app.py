@@ -227,7 +227,7 @@ h1 {
 """, unsafe_allow_html=True)
 
 # --------- Title ---------
-st.title("🤖 DSA Raiz Agent")
+st.title("🤖 DSA Agent Raiz")
 st.caption("Ask DSA questions, get hints, run code, or request problems 🚀")
 
 # --------- Clear Memory Button ---------
