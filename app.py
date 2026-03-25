@@ -147,7 +147,7 @@ from conversation_memory import clear_memory
 
 # --------- Page Config ---------
 st.set_page_config(
-    page_title="DSA Raiz Agent",
+    page_title="DSA Agent Raiz",
     page_icon="🤖",
     layout="centered"
 )
@@ -251,7 +251,7 @@ user_input = st.chat_input("Ask your question...")
 
 if user_input:
     # Show user message
-    st.session_state.messages.append({
+    st.session_state    .messages.append({
         "role": "user",
         "content": user_input
     })
